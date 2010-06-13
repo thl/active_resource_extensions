@@ -4,7 +4,7 @@ module ActiveResource
       alias :old_find :find
       def find(*arguments)
         begin
-          cache_key = ([element_name]+arguments.reject(&:nil?).collect{|arg| arg.to_s.strip}).reject(&:blank?).join('-')
+          cache_key = ([get_url, element_name]+arguments.reject(&:nil?).collect{|arg| arg.to_s.strip}).reject(&:blank?).join('-')
           return Rails.cache.fetch(cache_key) { old_find(*arguments) }
         rescue ActiveResource::TimeoutError, ActiveResource::ResourceNotFound
           return nil
