@@ -26,7 +26,9 @@ module ActiveResource
         def prefix_for_url
           host = site.host
           host = headers['Host'] if host=='127.0.0.1'
-          "#{site.scheme}://#{host}:#{site.port}"
+          prefix = "#{site.scheme}://#{host}"
+          prefix << ":#{site.port}" if site.port!=80
+          prefix
         end
         
         def get_url(method_name = nil, options = {})
