@@ -94,6 +94,10 @@ module ActiveResource
         def self_and_siblings
           parent ? parent.children : self.class.roots
         end
+        
+        def get_url_with_parent
+          self.class.get_url("#{self.root.id}/children/#{self.id}")
+        end
       end
     end
   end
