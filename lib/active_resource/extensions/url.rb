@@ -38,6 +38,15 @@ module ActiveResource
           url << ".#{format}" if !format.nil?
           url
         end
+        
+        def get_url_template(method_name = nil, options ={})
+          url = "#{self.prefix_for_url}#{self.prefix}"
+          url << "#{self.collection_name}/{id}/"
+          url << "#{method_name}" if !method_name.nil?
+          format = options[:format]
+          url << ".#{format}" if !format.nil?
+          url
+        end
       end
     end
   end
