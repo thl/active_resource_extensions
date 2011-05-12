@@ -47,6 +47,11 @@ module ActiveResource
           url << ".#{format}" if !format.nil?
           url
         end
+        
+        def link_to_remote(name, options = {}, html_options = {})
+          html_options.merge!({:href => url_for(options[:url])}) if ( html_options[:href].nil? || html_options[:href].blank? ) && !options[:url].blank?
+          link_to_function(name, remote_function(options), html_options || options.delete(:html))
+        end
       end
     end
   end
