@@ -6,7 +6,7 @@ module ActiveResource
         begin
           cache_key = ([self.public_class_method.name, get_url, element_name]+arguments.reject(&:nil?).collect{|arg| arg.to_s.strip}).reject(&:blank?).join('-')
           return Rails.cache.fetch(cache_key) { old_find(*arguments) }
-        rescue ActiveResource::TimeoutError, ActiveResource::ResourceNotFound
+        rescue ActiveResource::TimeoutError, ActiveResource::ResourceNotFound, ActiveResource::ServerError
           return nil
         end
       end
