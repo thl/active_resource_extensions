@@ -1,4 +1,4 @@
-module ActiveResource
+module ActiveResourceExtensions
   module Acts
     module Tree
       def self.included(base)
@@ -42,7 +42,7 @@ module ActiveResource
         # * <tt>counter_cache</tt> - keeps a count in a +children_count+ column if set to +true+ (default: +false+).
         def acts_as_active_resource_tree
           class_eval <<-EOV
-            include ActiveResource::Acts::Tree::InstanceMethods
+            include ActiveResourceExtensions::Acts::Tree::InstanceMethods
 
             def self.roots
               find(:all)

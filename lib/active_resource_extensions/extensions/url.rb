@@ -1,4 +1,4 @@
-module ActiveResource
+module ActiveResourceExtensions
   module Extensions
     module URL
       def self.included(base)

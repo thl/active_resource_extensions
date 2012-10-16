@@ -1,4 +1,4 @@
-module ActiveResource
+module ActiveResourceExtensions
   module Extensions
     module Translation
       def self.included(base)
