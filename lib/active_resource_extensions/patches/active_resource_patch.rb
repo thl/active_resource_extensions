@@ -1,11 +1,14 @@
 module ActiveResource
   class Base
     class << self
+      def cache_key(*arguments)
+        ([get_url, element_name]+arguments.reject(&:nil?).collect{|arg| arg.to_s.strip}).reject(&:blank?).join('-')
+      end
+      
       alias :old_find :find
       def find(*arguments)
         begin
-          cache_key = ([get_url, element_name]+arguments.reject(&:nil?).collect{|arg| arg.to_s.strip}).reject(&:blank?).join('-')
-          return Rails.cache.fetch(cache_key, :expires_in => 1.hour) { old_find(*arguments) }
+          return Rails.cache.fetch(cache_key(*arguments), :expires_in => 1.hour) { old_find(*arguments) }
         rescue ActiveResource::TimeoutError, ActiveResource::ResourceNotFound, ActiveResource::ServerError
           return nil
         end
