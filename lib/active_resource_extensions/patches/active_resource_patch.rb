@@ -8,7 +8,8 @@ module ActiveResource
       alias :old_find :find
       def find(*arguments)
         begin
-          return Rails.cache.fetch(cache_key(*arguments), :expires_in => 1.hour) { old_find(*arguments) }
+          # return Rails.cache.fetch(cache_key(*arguments), :expires_in => 1.hour) {  }
+          old_find(*arguments)
         rescue ActiveResource::TimeoutError, ActiveResource::ResourceNotFound, ActiveResource::ServerError
           return nil
         end
