@@ -8,8 +8,15 @@ module ActiveResource
       alias :old_find :find
       def find(*arguments)
         begin
-          # return Rails.cache.fetch(cache_key(*arguments), :expires_in => 1.hour) {  }
-          old_find(*arguments)
+          key = cache_key(*arguments)
+          cache = Rails.cache.fetch(key)
+          if cache.nil?
+            obj = old_find(*arguments)
+            Rails.cache.write(key, obj.instance_of?(Array) ? obj : obj.to_xml, :expires_in => 1.day)
+          else
+            obj = cache.instance_of?(String) ? self.new.from_xml(cache) : cache
+          end
+          return obj
         rescue ActiveResource::TimeoutError, ActiveResource::ResourceNotFound, ActiveResource::ServerError
           return nil
         end
