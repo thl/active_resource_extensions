@@ -12,7 +12,7 @@ module ActiveResource
           cache = Rails.cache.fetch(key)
           if cache.nil?
             obj = old_find(*arguments)
-            Rails.cache.write(key, obj.instance_of?(Array) ? obj : obj.to_xml, :expires_in => 1.day)
+            Rails.cache.write(key, obj.instance_of?(Array) ? obj : obj.to_xml, :expires_in => 1.day) if !obj.nil?
           else
             obj = cache.instance_of?(String) ? self.new.from_xml(cache) : cache
           end
