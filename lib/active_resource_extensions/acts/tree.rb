@@ -1,10 +1,11 @@
 module ActiveResourceExtensions
   module Acts
     module Tree
-      def self.included(base)
-        base.extend(ClassMethods)
+      extend ActiveSupport::Concern
+      
+      included do
       end
-
+      
       # Specify this +acts_as+ extension if you want to model a tree structure by providing a parent association and a children
       # association. This requires that you have a foreign key column, which by default is called +parent_id+.
       #
@@ -41,7 +42,7 @@ module ActiveResourceExtensions
         # * <tt>order</tt> - makes it possible to sort the children according to this SQL snippet.
         # * <tt>counter_cache</tt> - keeps a count in a +children_count+ column if set to +true+ (default: +false+).
         def acts_as_active_resource_tree
-          class_eval <<-EOV
+          class_eval do
             include ActiveResourceExtensions::Acts::Tree::InstanceMethods
 
             def self.roots
@@ -51,7 +52,7 @@ module ActiveResourceExtensions
             def self.root
               find(:first)
             end
-          EOV
+          end
         end
       end
 

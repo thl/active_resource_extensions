@@ -1,11 +1,11 @@
 module ActiveResourceExtensions
   module Extensions
     module Translation
-      def self.included(base)
-        base.class_eval do
-          extend ClassMethods
-        end
+      extend ActiveSupport::Concern
+      
+      included do
       end
+      
       module ClassMethods
         # Returns the base AR subclass that this class descends from. If A
         # extends AR::Base, A.base_class will return A. If B descends from A
