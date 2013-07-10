@@ -1,6 +1,6 @@
 module ActiveResourceExtensions
   module Acts
-    module Tree
+    module FamilyTree
       extend ActiveSupport::Concern
       
       included do
@@ -41,16 +41,12 @@ module ActiveResourceExtensions
         # * <tt>foreign_key</tt> - specifies the column name to use for tracking of the tree (default: +parent_id+)
         # * <tt>order</tt> - makes it possible to sort the children according to this SQL snippet.
         # * <tt>counter_cache</tt> - keeps a count in a +children_count+ column if set to +true+ (default: +false+).
-        def acts_as_active_resource_tree
+        def acts_as_active_resource_family_tree
           class_eval do
-            include ActiveResourceExtensions::Acts::Tree::CustomInstanceMethods
+            include ActiveResourceExtensions::Acts::FamilyTree::CustomInstanceMethods
 
             def self.roots
               find(:all)
-            end
-
-            def self.root
-              find(:first)
             end
           end
         end
@@ -58,28 +54,18 @@ module ActiveResourceExtensions
 
       module CustomInstanceMethods
         def parent
-          self.class.find(self.parent_id)
-        end
+          klass = self.class
+          klass.new(self.parents.first.attributes)
+        end        
         
         def children
           klass = self.class
           self.get(:children).collect{|h| klass.new(h)}
         end
         
-        # Returns list of ancestors, starting from parent until root.
-        #
-        #   subchild1.ancestors # => [child1, root]
-        def ancestors
-          node, nodes = self, []
-          nodes << node = node.parent while node.parent
-          nodes
-        end
-
         # Returns the root node of the tree.
         def root
-          node = self
-          node = node.parent while node.parent
-          node
+          self.ancestors.first
         end
 
         # Returns all siblings of the current node.
@@ -94,10 +80,6 @@ module ActiveResourceExtensions
         #   subchild1.self_and_siblings # => [subchild1, subchild2]
         def self_and_siblings
           parent ? parent.children : self.class.roots
-        end
-        
-        def get_url_with_parent
-          self.class.get_url("#{self.root.id}/children/#{self.id}")
         end
       end
     end
