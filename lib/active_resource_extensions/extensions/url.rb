@@ -7,7 +7,13 @@ module ActiveResourceExtensions
       end
       
       def get_url(method_name = nil, options = {})
-        self.class.prefix_for_url + "#{self.class.prefix}#{self.class.collection_name}/#{id}#{'/' + method_name.to_s if !method_name.blank?}.#{options[:format] || self.class.format.extension}"
+        str = "#{self.class.prefix_for_url}#{self.class.prefix}#{self.class.collection_name}/#{id}#{'/' + method_name.to_s if !method_name.blank?}"
+        if options[:format].nil?
+          str << ".#{self.class.format.extension}"
+        else
+          str << ".#{options[:format]}" if !options[:format].blank?
+        end
+        str
       end        
 
       module ClassMethods
