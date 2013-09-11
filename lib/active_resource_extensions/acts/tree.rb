@@ -78,6 +78,7 @@ module ActiveResourceExtensions
         # Returns the root node of the tree.
         def root
           node = self
+          return node if node.id == node.parent_id
           node = node.parent while node.parent
           node
         end
