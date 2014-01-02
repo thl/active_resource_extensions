@@ -55,7 +55,7 @@ module ActiveResourceExtensions
       module CustomInstanceMethods
         def parent
           klass = self.class
-          klass.new(self.parents.first.attributes)
+          klass.find(self.parents.first.id)
         end        
         
         def children
