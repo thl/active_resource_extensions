@@ -67,6 +67,10 @@ module ActiveResourceExtensions
         def root
           self.ancestors.first
         end
+        
+        def sub_root
+          self.ancestors.second
+        end
 
         # Returns all siblings of the current node.
         #
