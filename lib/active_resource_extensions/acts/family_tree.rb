@@ -58,14 +58,10 @@ module ActiveResourceExtensions
           klass.find(self.parents.first.id)
         end        
         
-        def children
-          klass = self.class
-          self.get(:children).collect{|h| klass.new(h)}
-        end
-        
         # Returns the root node of the tree.
         def root
-          self.ancestors.first
+          klass = self.class
+          klass.find(self.ancestors.first.id)
         end
         
         def sub_root
