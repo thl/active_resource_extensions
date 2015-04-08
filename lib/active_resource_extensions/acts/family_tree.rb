@@ -55,7 +55,8 @@ module ActiveResourceExtensions
       module CustomInstanceMethods
         def parent
           klass = self.class
-          klass.find(self.parents.first.id)
+          p = self.parents.first
+          p.nil? ? nil : klass.find(p.id)
         end        
         
         # Returns the root node of the tree.
