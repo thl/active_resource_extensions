@@ -62,11 +62,14 @@ module ActiveResourceExtensions
         # Returns the root node of the tree.
         def root
           klass = self.class
-          klass.find(self.ancestors.first.id)
+          r = self.ancestors.first
+          r.nil? ? nil : klass.find(r.id)
         end
         
         def sub_root
-          self.ancestors.second
+          klass = self.class
+          sr = self.ancestors.second
+          sr.nil? ? nil : klass.find(sr.id)
         end
 
         # Returns all siblings of the current node.
