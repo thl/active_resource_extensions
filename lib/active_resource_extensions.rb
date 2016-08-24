@@ -8,8 +8,6 @@ ActiveResource::Base.send :include, ActiveResourceExtensions::Acts::Tree
 ActiveResource::Base.send :include, ActiveResourceExtensions::Acts::FamilyTree
 ActiveResource::Base.send :include, ActiveResourceExtensions::Extensions::URL
 ActiveResource::Base.send :include, ActiveResourceExtensions::Extensions::Translation
-# Using hpricot. require 'hpricot' no longer needed as this is done automatically by rails 3 in Gemfile.
-require 'active_resource_extensions/patches/traverse'
 require 'active_resource_extensions/patches/active_resource_patch'
 require 'active_resource_extensions/patches/http_wrapper'
 require 'active_resource_extensions/patches/connection'
