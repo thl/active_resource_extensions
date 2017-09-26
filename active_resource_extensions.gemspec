@@ -7,17 +7,17 @@ require "active_resource_extensions/version"
 Gem::Specification.new do |s|
   s.name        = "active_resource_extensions"
   s.version     = ActiveResourceExtensions::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of ActiveResourceExtensions."
-  s.description = "TODO: Description of ActiveResourceExtensions."
+  s.authors     = ["Andres Montano"]
+  s.email       = ["amontano@virginia.edu"]
+  s.homepage    = "http://subjects.kmaps.virginia.edu"
+  s.summary     = "Engine that extends functionality of active resource to include family tree support and additional helper methods."
+  s.description = "Engine that extends functionality of active resource to include family tree support and additional helper methods."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency 'activeresource'
-  s.add_dependency "rails", "~> 4.0"
+  s.add_dependency 'rails', '~> 4.1.16'
   s.add_dependency 'hpricot' #, '>= 0.8.6'
 
   s.add_development_dependency "sqlite3"
