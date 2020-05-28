@@ -4,7 +4,6 @@ module ActiveResource
     
     def get(path, headers = {})
       cache_key = site.host
-      cache_key = headers['Host'] if cache_key=='127.0.0.1'
       cache_key = cache_key.nil? ? path : File.join(cache_key, path)
       body = Rails.cache.read(cache_key)
       if body.nil?
