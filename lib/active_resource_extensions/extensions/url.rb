@@ -25,20 +25,14 @@ module ActiveResourceExtensions
           prefix_for_url + "#{prefix}#{collection_name}/#{id}.#{options[:format] || format.extension}"
         end
         
-        def host_name
-          host = site.host
-          host = headers['Host'] if host=='127.0.0.1'
-          host
-        end
-        
         def prefix_for_url
-          prefix = "#{site.scheme}://#{host_name}"
+          prefix = "#{site.scheme}://#{site.host}"
           prefix << ":#{site.port}" if site.port!=80
           prefix
         end
         
         def service
-          host_name.gsub('.', '_')
+          site.host.gsub('.', '_')
         end
         
         def get_url(method_name = nil, options = {})
