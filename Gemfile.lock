@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    active_resource_extensions (2.2.2)
+    active_resource_extensions (2.2.3)
       activeresource
       hpricot
       rails (>= 4.0)
@@ -139,4 +139,4 @@ DEPENDENCIES
   rails (~> 5.2.3)
 
 BUNDLED WITH
-   1.17.3
+   2.1.4
