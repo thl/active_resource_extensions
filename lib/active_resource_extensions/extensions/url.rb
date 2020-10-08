@@ -14,15 +14,11 @@ module ActiveResourceExtensions
           str << ".#{options[:format]}" if !options[:format].blank?
         end
         str
-      end        
-
+      end
+      
       module ClassMethods
         def collection_url(options = {})
           prefix_for_url + "#{prefix}#{collection_name}.#{options[:format] || format.extension}"
-        end
-        
-        def element_url(id, options = {})
-          prefix_for_url + "#{prefix}#{collection_name}/#{id}.#{options[:format] || format.extension}"
         end
         
         def prefix_for_url
