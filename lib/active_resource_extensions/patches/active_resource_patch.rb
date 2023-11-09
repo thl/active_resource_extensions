@@ -10,7 +10,7 @@ module ActiveResource
         end
       end
       
-      def element_url(id, options = {})
+      def element_url(id, **options)
         str = prefix_for_url + "#{prefix}#{collection_name}/#{id}"
         ext = options[:format] || format.extension
         return ext.blank? ? str : [str, ext].join('.')

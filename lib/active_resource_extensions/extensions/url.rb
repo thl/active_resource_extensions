@@ -6,7 +6,7 @@ module ActiveResourceExtensions
       included do
       end
       
-      def get_url(method_name = nil, options = {})
+      def get_url(method_name = nil, **options)
         str = "#{self.class.prefix_for_url}#{self.class.prefix}#{self.class.collection_name}/#{id}#{'/' + method_name.to_s if !method_name.blank?}"
         if options[:format].nil?
           str << ".#{self.class.format.extension}"
@@ -17,7 +17,7 @@ module ActiveResourceExtensions
       end
       
       module ClassMethods
-        def collection_url(options = {})
+        def collection_url(**options)
           prefix_for_url + "#{prefix}#{collection_name}.#{options[:format] || format.extension}"
         end
         
@@ -31,7 +31,7 @@ module ActiveResourceExtensions
           site.host.gsub('.', '_')
         end
         
-        def get_url(method_name = nil, options = {})
+        def get_url(method_name = nil, **options)
           url = "#{self.prefix_for_url}#{self.prefix}"
           url << "#{self.collection_name}/#{method_name}" if !method_name.nil?
           format = options[:format]
@@ -39,7 +39,7 @@ module ActiveResourceExtensions
           url
         end
         
-        def get_url_template(method_name = nil, options ={})
+        def get_url_template(method_name = nil, **options)
           url = "#{self.prefix_for_url}#{self.prefix}"
           url << "#{self.collection_name}/{id}/"
           url << "#{method_name}" if !method_name.nil?

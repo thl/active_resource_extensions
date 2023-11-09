@@ -18,10 +18,11 @@ module ActiveResourceExtensions
         # Defaults to the basic humanize method.
         # Default scope of the translation is activerecord.models
         # Specify +options+ with additional translating options.
-        def human_name(options = {})
+        def human_name(**arg)
           defaults = self_and_descendants_from_active_resource.map {|klass| :"#{klass.name.underscore}" }
           defaults << self.name.humanize
-          I18n.translate(defaults.shift, {:scope => [:activeresource, :models], :count => 1, :default => defaults}.merge(options))
+          options = {:scope => [:activeresource, :models], :count => 1, :default => defaults}.merge(arg)
+          I18n.translate(defaults.shift, **options)
         end
         
         # Transforms attribute key names into a more humane format, such as "First name" instead of "first_name". Example:
@@ -29,7 +30,7 @@ module ActiveResourceExtensions
         # This used to be depricated in favor of humanize, but is now preferred, because it automatically uses the I18n
         # module now.
         # Specify +options+ with additional translating options.
-        def human_attribute_name(attribute_key_name, options = {})
+        def human_attribute_name(attribute_key_name, **options)
           defaults = self_and_descendants_from_active_resource.map do |klass|
             :"#{klass.name.underscore}.#{attribute_key_name}"
           end
