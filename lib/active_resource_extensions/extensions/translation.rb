@@ -38,7 +38,7 @@ module ActiveResourceExtensions
           defaults.flatten!
           defaults << attribute_key_name.to_s.humanize
           options[:count] ||= 1
-          I18n.translate(defaults.shift, options.merge(:default => defaults, :scope => [:activeresource, :attributes]))
+          I18n.translate(defaults.shift, **options.merge(:default => defaults, :scope => [:activeresource, :attributes]))
         end
         
         private
