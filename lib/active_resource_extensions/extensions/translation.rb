@@ -6,7 +6,7 @@ module ActiveResourceExtensions
       included do
       end
       
-      module ClassMethods
+      class_methods do
         # Returns the base AR subclass that this class descends from. If A
         # extends AR::Base, A.base_class will return A. If B descends from A
         # through some arbitrarily deep hierarchy, B.base_class will return A.

@@ -16,7 +16,7 @@ module ActiveResourceExtensions
         str
       end
       
-      module ClassMethods
+      class_methods do
         def collection_url(**options)
           prefix_for_url + "#{prefix}#{collection_name}.#{options[:format] || format.extension}"
         end

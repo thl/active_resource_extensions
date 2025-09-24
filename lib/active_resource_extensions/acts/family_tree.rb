@@ -35,7 +35,7 @@ module ActiveResourceExtensions
       # * <tt>self_and_siblings</tt> - Returns all the children of the parent, including the current node (<tt>[subchild1, subchild2]</tt> when called on <tt>subchild1</tt>)
       # * <tt>ancestors</tt> - Returns all the ancestors of the current node (<tt>[child1, root]</tt> when called on <tt>subchild2</tt>)
       # * <tt>root</tt> - Returns the root of the current node (<tt>root</tt> when called on <tt>subchild2</tt>)
-      module ClassMethods
+      class_methods do
         # Configuration options are:
         #
         # * <tt>foreign_key</tt> - specifies the column name to use for tracking of the tree (default: +parent_id+)
