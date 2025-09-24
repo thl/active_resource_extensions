@@ -17,6 +17,5 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency 'activeresource'
-  s.add_dependency 'rails'#, '>= 4.0'
-  s.add_dependency 'hpricot' #, '>= 0.8.6'
+  s.add_dependency 'rails'
 end
